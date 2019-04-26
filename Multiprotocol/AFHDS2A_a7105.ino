@@ -207,7 +207,7 @@ static void AFHDS2A_build_packet(uint8_t type)
 			for(uint8_t ch=0; ch<14; ch++)
 			{
 				#ifdef FAILSAFE_ENABLE
-				int16_t failsafeMicros = Failsafe_data[CH_AETR[ch]];
+				uint16_t failsafeMicros = Failsafe_data[CH_AETR[ch]];
 				switch (failsafeMicros) {
 					default:
 						// Failsafe values
