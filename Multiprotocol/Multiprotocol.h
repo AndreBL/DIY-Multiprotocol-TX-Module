@@ -19,7 +19,7 @@
 #define VERSION_MAJOR		1
 #define VERSION_MINOR		2
 #define VERSION_REVISION	1
-#define VERSION_PATCH_LEVEL	37
+#define VERSION_PATCH_LEVEL	46
 
 //******************
 // Protocols
@@ -74,7 +74,7 @@ enum PROTOCOLS
 	PROTO_E01X		= 45,	// =>NRF24L01
 	PROTO_V911S		= 46,	// =>NRF24L01
 	PROTO_GD00X		= 47,	// =>NRF24L01
-	PROTO_TEST		= 63,	// =>NRF24L01
+	PROTO_XN297DUMP	= 63,	// =>NRF24L01
 };
 
 enum Flysky
@@ -166,6 +166,7 @@ enum BAYANG
     H8S3D	= 1,
     X16_AH  = 2,
 	IRDRONE = 3,
+	DHD_D4	= 4,
 };
 enum MT99XX
 {
@@ -665,6 +666,7 @@ Serial: 100000 Baud 8e2      _ xxxx xxxx p --
 			H8S3D		1
 			X16_AH		2
 			IRDRONE		3
+			DHD_D4		4
 		sub_protocol==MT99XX
 			MT99		0
 			H7			1

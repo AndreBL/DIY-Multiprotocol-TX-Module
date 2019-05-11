@@ -62,7 +62,7 @@ static void __attribute__((unused)) BAYANG_send_packet(uint8_t bind)
 			else
 	#else
 		if(option & BAYANG_OPTION_FLAG_ANALOGAUX)
-			packet[0]= 0xA2;	// analog aux is enabled
+			packet[0]= 0xA2;		// analog aux is enabled
 		else
 	#endif
 			packet[0]= 0xA4;
@@ -79,6 +79,10 @@ static void __attribute__((unused)) BAYANG_send_packet(uint8_t bind)
 			case IRDRONE:
 				packet[10] = 0x30;
 				packet[11] = 0x01;
+				break;
+			case DHD_D4:
+				packet[10] = 0xC8;
+				packet[11] = 0x99;
 				break;
 			default:
 				packet[10] = rx_tx_addr[0];	// txid[0]
@@ -106,7 +110,7 @@ static void __attribute__((unused)) BAYANG_send_packet(uint8_t bind)
 			packet[1] = convert_channel_8b(CH14);
 		}
 		else
-			packet[1] = 0xFA;		// normal mode is 0xf7, expert 0xfa
+			packet[1] = 0xFA;		// normal mode is 0xF7, expert 0xFa , D4 normal is 0xF4
 
 		//Flags packet[2]
 		packet[2] = 0x00;
@@ -164,11 +168,14 @@ static void __attribute__((unused)) BAYANG_send_packet(uint8_t bind)
 			packet[12] = 0xE0;
 			packet[13] = 0x2E;
 			break;
+		case DHD_D4:
+			packet[12] = 0x37;	//0x17 during bind
+			packet[13] = 0xED;
+			break;
 		default:
 			packet[12] = rx_tx_addr[2];	// txid[2]
 			if (option & BAYANG_OPTION_FLAG_ANALOGAUX)
-			{
-				// Analog aux channel 2 (channel 15)
+			{	// Analog aux channel 2 (channel 15)
 				packet[13] = convert_channel_8b(CH15);
 			}
 			else
@@ -325,7 +332,10 @@ uint16_t BAYANG_callback()
 static void __attribute__((unused)) BAYANG_initialize_txid()
 {
 	//Could be using txid[0..2] but using rx_tx_addr everywhere instead...
-	hopping_frequency[0]=0;
+	if(sub_protocol==DHD_D4)
+		hopping_frequency[0]=(rx_tx_addr[2]&0x07)|0x01;
+	else
+		hopping_frequency[0]=0;
 	hopping_frequency[1]=(rx_tx_addr[3]&0x1F)+0x10;
 	hopping_frequency[2]=hopping_frequency[1]+0x20;
 	hopping_frequency[3]=hopping_frequency[2]+0x20;

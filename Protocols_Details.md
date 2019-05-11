@@ -160,6 +160,8 @@ Option is used to change the servo refresh rate. A value of 0 gives 50Hz (min), 
 
 **RX_Num is used to give a number a given RX. You must use a different RX_Num per RX. A maximum of 16 AFHDS2A RXs are supported.**
 
+OpenTX suggested RSSI alarm threshold settings (Telemetry tab): Low=15, Critical=12.
+
 If telemetry is incomplete (missing RX RSSI for example), it means that you have to upgrade your RX firmware to version 1.6 or later. You can do it from an original Flysky TX or using a STLink like explained in [this tutorial](https://www.rcgroups.com/forums/showthread.php?2677694-How-to-upgrade-Flysky-Turnigy-iA6B-RX-to-firmware-1-6-with-a-ST-Link).
 
 AFHDS2A_LQI_CH is a feature which is disabled by defaut in the _config.h file. When enabled, it makes LQI (Link Quality Indicator) available on one of the RX ouput channel (5-14).
@@ -565,6 +567,13 @@ CH12|CH13
 ----|----
 TAKE_OFF|EMG_STOP
 
+### Sub_protocol DHD_D4 - *4*
+Model: DHD D4
+
+CH12|CH13
+----|----
+TAKE_OFF|EMG_STOP
+
 ## BUGSMINI - *42*
 Models: MJX Bugs 3 Mini and 3H
 
@@ -581,7 +590,9 @@ ANGLE: angle is +100%, acro is -100%
 ### Sub_protocol BUGSMINI - *0*
 
 ### Sub_protocol BUGS3H - *1*
-
+CH11|
+---|
+ALTHOLD|
 
 ## Cabell - *34*
 Homegrown protocol with variable number of channels (4-16) and telemetry (RSSI, V1, V2).
